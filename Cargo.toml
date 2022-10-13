@@ -7,7 +7,9 @@ edition = "2021"
 [dependencies]
 kiss3d = {path = "../kiss3d"}
 rapier3d = {version = "0.15.0" , features = [ "simd-stable" ] }
-# nalgebra = "0.31.2"
+nalgebra = "0.31.2"
+rand = "0.8.5"
+
 
 [[bin]]
 name = "test"
@@ -20,3 +22,7 @@ path = "src/main.rs"
 [[bin]]
 name = "kiss_test"
 path = "hello_rendering/kiss3d_test.rs"
+
+[[bin]]
+name = "mesh_test"
+path = "mesh_test/mesh_test.rs"

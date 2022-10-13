@@ -37,7 +37,7 @@ fn main() {
     collider_set.insert_with_parent(ball_collider, ball_handle, &mut rigid_body_set);
     let mut physics_pipeline = PhysicsPipeline::new();
     // make a rigidbody and collider set
-
+    make_lane(&mut window, &mut rigid_body_set, &mut collider_set);
     // Render the scene
     while window.render() {
         for event in window.events().iter() {
@@ -71,4 +71,47 @@ fn main() {
             }
         }
     }
+}
+
+pub fn make_lane(window: &mut Window, bodies: &mut RigidBodySet, colliders: &mut ColliderSet) {
+    let lane_rigid_body = RigidBodyBuilder::fixed().build(); // Make the lane as a fixed rigid body and collider.
+    let lane_handle = bodies.insert(lane_rigid_body);
+    let side_size = 0.4;
+    // Make two walls with a floor
+
+    // let left_wall_collider = ColliderBuilder::cuboid(side_size * 10.0, side_size, side_size * 5.0);
+    // let right_wall_collider = ColliderBuilder::cuboid(side_size * 10.0, side_size, side_size * 5.0);
+    // let floor_colliders = ColliderBuilder::cuboid(side_size * 10.0, side_size, side_size * 5.0);
+    // colliders.insert_with_parent(left_wall_collider, lane_handle, bodies);
+    // colliders.insert_with_parent(right_wall_collider, lane_handle, bodies);
+    // colliders.insert_with_parent(floor_colliders, lane_handle, bodies);
+    let lane_shape = vec![
+        (
+            Isometry::identity(),
+            SharedShape::cuboid(side_size * 10.0, side_size, side_size * 5.0),
+        ),
+        (
+            Isometry::translation(side_size * 10.0, side_size * 10.0, 0.0),
+            SharedShape::cuboid(side_size * 10.0, side_size, side_size * 5.0),
+        ),
+        (
+            Isometry::translation(-side_size * 10.0, 0.0, 0.0),
+            SharedShape::cuboid(side_size, side_size, side_size * 10.0),
+        ),
+    ];
+    let lane_collider = ColliderBuilder::compound(lane_shape).build();
+
+    colliders.insert_with_parent(lane_collider, lane_handle, bodies);
+
+    let mut lane_group = window.add_group();
+    // let mut lane = window.add_cube(1.0, 0.1, 1.0); // Make the lane as a scene node.
+    lane_group.add_cube(side_size * 10.0, side_size, side_size * 5.0);
+    lane_group
+        .add_cube(side_size * 10.0, side_size, side_size * 5.0)
+        .append_translation(&Translation3::new(side_size * 10.0, side_size * 10.0, 0.0));
+    lane_group
+        .add_cube(side_size, side_size, side_size * 10.0)
+        .append_translation(&Translation3::new(-side_size * 10.0, 0.0, 0.0));
+
+    lane_group.set_color(0.0, 0.0, 1.0);
 }
