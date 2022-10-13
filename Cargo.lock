@@ -783,6 +783,7 @@ checksum = "e2db585e1d738fc771bf08a151420d3ed193d9d895a36df7f6f8a9456b911ddc"
 [[package]]
 name = "kiss3d"
 version = "0.35.0"
+source = "git+https://github.com/Exiled1/kiss3d?branch=master#41a14c09c426d9e85835c2282c72d7677fc23d15"
 dependencies = [
  "bitflags",
  "either",
@@ -795,7 +796,6 @@ dependencies = [
  "nalgebra",
  "ncollide3d",
  "num-traits",
- "parry3d",
  "rusttype 0.8.3",
  "serde",
  "serde_derive",
