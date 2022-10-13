@@ -1,11 +1,9 @@
-// use bowling_resources::bowling_structs::BowlingGame;
 use kiss3d;
 use kiss3d::event::{Action, WindowEvent};
 use kiss3d::light::Light;
 use kiss3d::nalgebra::Translation3;
 use kiss3d::window::Window;
 use rapier3d::prelude::*;
-mod bowling_resources;
 fn main() {
     // The first iteration of this game is gonna use a "super class" to hold and manipulate all the game objects.
     // Initialize the game.
